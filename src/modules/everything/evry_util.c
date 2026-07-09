@@ -1034,6 +1034,7 @@ evry_fuzzy_match(const char *str, const char *match)
                        cnt++;
                        next = p;
                        m_cnt = 0;
+                       pm = NULL;
                        break;
                     }
                }
@@ -1114,6 +1115,7 @@ evry_fuzzy_match(const char *str, const char *match)
                   cnt++;
                   next = p;
                   m_cnt = 0;
+                  pm = NULL;
                   break;
                }
              else
