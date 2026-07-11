@@ -1346,7 +1346,7 @@ gl_locale_name_canonicalize (char *name)
         }
       if (strcmp (name, legacy_table[i1].legacy) == 0)
         {
-          strcpy (name, legacy_table[i1].unixy);
+          strncpy (name, legacy_table[i1].unixy, sizeof (legacy_table[i1].unixy));
           return;
         }
     }
@@ -1370,7 +1370,7 @@ gl_locale_name_canonicalize (char *name)
         }
       if (strcmp (name, langtag_table[i1].langtag) == 0)
         {
-          strcpy (name, langtag_table[i1].unixy);
+          strncpy (name, langtag_table[i1].unixy, sizeof (langtag_table[i1].unixy));
           return;
         }
 
