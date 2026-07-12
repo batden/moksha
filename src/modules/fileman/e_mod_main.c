@@ -304,15 +304,10 @@ _e_mod_fileman_config_load(void)
         fileman_config->view.spring_delay = 1;
         fileman_config->icon.max_thumb_size = 5;
         fileman_config->view.toolbar_orient = E_GADCON_ORIENT_TOP;
-        if (ecore_file_exists("/usr/share/applications/Thunar.desktop"))
-            // Ubuntu 18.04
-            fileman_config->view.customFM = eina_stringshare_add("Thunar");
+        if (ecore_file_exists("/usr/share/applications/thunar.desktop"))
+          fileman_config->view.customFM = eina_stringshare_add("thunar");
         else
-            if (ecore_file_exists("/usr/share/applications/Thunar.desktop"))
-                // Ubuntu 20.04
-                fileman_config->view.customFM = eina_stringshare_add("thunar");
-            else
-                fileman_config->view.customFM = eina_stringshare_add("pcmanfm");
+          fileman_config->view.customFM = eina_stringshare_add("pcmanfm");
      }
 
 
