@@ -113,6 +113,26 @@ static void box_modify_coord_get(int *x1, int *y1, int *x2, int *y2, double *ang
 static Evas_Object *box_obj_get(void);
 static void box_eval(void);
 
+// undo/redo (defined near the end of the file, after crop handling) -------
+static void undo_push_add(Evas_Object *obj, Evas_Object *shadow, Eina_Bool is_line);
+static void undo_push_delete(Evas_Object *obj, Evas_Object *shadow, Eina_Bool is_line);
+static void undo_push_modify_line(Evas_Object *obj,
+                                  int x1b, int y1b, int x2b, int y2b,
+                                  int x1a, int y1a, int x2a, int y2a);
+static void undo_push_modify_box(Evas_Object *obj,
+                                 int x1b, int y1b, int x2b, int y2b, double angb,
+                                 int x1a, int y1a, int x2a, int y2a, double anga);
+static void undo_push_crop(int xb, int yb, int wb, int hb,
+                           int xa, int ya, int wa, int ha);
+static void undo_object_show(Evas_Object *obj, Evas_Object *shadow, Eina_Bool is_line);
+static void undo_object_hide(Evas_Object *obj, Evas_Object *shadow);
+
+// tentative declarations - these are actually defined (with their
+// initializer) further down in the "line tool handling" section, but
+// _cb_modify_mouse_up() above needs to refer to o_line already
+static Evas_Object *o_line;
+static Evas_Object *o_line_shadow;
+
 static void
 draw_handle_line_update(void)
 {
@@ -198,6 +218,28 @@ _cb_modify_mouse_up(void *data __UNUSED__, Evas *e __UNUSED__, Evas_Object *obj 
                elm_layout_signal_emit(o_draw_handles[0], "e,state,resize", "e");
              else
                elm_layout_signal_emit(o_draw_handles[0], "e,state,move", "e");
+          }
+
+        if (modify_mode == MODIFY_LINE)
+          {
+             int x1, y1, x2, y2;
+
+             line_modify_coord_get(&x1, &y1, &x2, &y2);
+             undo_push_modify_line(o_line,
+                                   modify_line_x1, modify_line_y1,
+                                   modify_line_x2, modify_line_y2,
+                                   x1, y1, x2, y2);
+          }
+        else if (modify_mode == MODIFY_BOX)
+          {
+             int x1, y1, x2, y2;
+             double ang;
+
+             box_modify_coord_get(&x1, &y1, &x2, &y2, &ang);
+             undo_push_modify_box(box_obj_get(),
+                                  modify_box_x1, modify_box_y1,
+                                  modify_box_x2, modify_box_y2, modify_box_angle,
+                                  x1, y1, x2, y2, ang);
           }
      }
 }
@@ -591,12 +633,11 @@ _cb_draw_mouse_down(void *data __UNUSED__, Evas *e __UNUSED__, Evas_Object *obj,
           }
         else if (tool_mode == TOOL_DELETE)
           {
-             Evas_Object *o;
+             Evas_Object *shadow = evas_object_data_get(obj, "shadow");
+             Eina_Bool is_line = evas_object_data_get(obj, "line") ? EINA_TRUE : EINA_FALSE;
 
-             draw_objects = eina_list_remove(draw_objects, obj);
-             o = evas_object_data_get(obj, "shadow");
-             if (o) evas_object_del(o);
-             evas_object_del(obj);
+             undo_push_delete(obj, shadow, is_line);
+             undo_object_hide(obj, shadow);
           }
      }
 }
@@ -810,6 +851,7 @@ static void
 line_up(int x __UNUSED__, int y __UNUSED__)
 {
    line_mouse_pressed = EINA_FALSE;
+   if (o_line) undo_push_add(o_line, o_line_shadow, EINA_TRUE);
    o_line = NULL;
 }
 
@@ -1077,6 +1119,7 @@ static void
 box_up(int x __UNUSED__, int y __UNUSED__)
 {
    box_mouse_pressed = EINA_FALSE;
+   if (o_box) undo_push_add(o_box, o_box_shadow, EINA_FALSE);
    o_box = NULL;
 }
 
@@ -1126,6 +1169,10 @@ static int          crop_adjust_y = 0;
 static Eina_Bool    crop_area_changed = EINA_FALSE;
 static Eina_Bool    crop_mouse_pressed = EINA_FALSE;
 static Evas_Object *o_crop = NULL;
+static int          crop_x_before = 0;
+static int          crop_y_before = 0;
+static int          crop_w_before = 0;
+static int          crop_h_before = 0;
 
 static void crop_down(int x, int y);
 
@@ -1303,6 +1350,11 @@ crop_eval(int x1, int y1, int x2, int y2)
 static void
 crop_down(int x, int y)
 {
+   crop_x_before = crop_area.x;
+   crop_y_before = crop_area.y;
+   crop_w_before = crop_area.w;
+   crop_h_before = crop_area.h;
+
    crop_down_x = x;
    crop_down_y = y;
    crop_area_changed = EINA_FALSE;
@@ -1419,6 +1471,8 @@ try_win:
      {
         crop_clear();
      }
+   undo_push_crop(crop_x_before, crop_y_before, crop_w_before, crop_h_before,
+                  crop_area.x, crop_area.y, crop_area.w, crop_area.h);
 }
 
 static void
@@ -1445,6 +1499,445 @@ crop_move(int x, int y)
           crop_eval(crop_area.x, crop_area.y, x, y);
         crop_area_changed = EINA_TRUE;
      }
+}
+//
+//////////////////////////////////////////////////////////////////////////////
+
+//////////////////////////////////////////////////////////////////////////////
+// undo / redo handling
+//
+// Every reversible action (creating a line/box, deleting one, moving /
+// resizing / rotating one, or changing the crop area) is recorded as an
+// Undo_Action on undo_stack when it is committed (mouse up). Undo pops the
+// most recent action, reverses it, and pushes it onto redo_stack; redo does
+// the opposite. Starting a brand new action clears redo_stack, since that
+// history branch no longer applies.
+//
+// Deleted objects are not actually destroyed straight away - they are just
+// hidden and removed from draw_objects so undo can bring them straight back.
+// They are only permanently freed once they become unreachable (their
+// delete action falls off the bottom of the undo stack, or their create
+// action is discarded from the redo stack).
+//
+// NOTE: this does not undo edits to the *text* typed inside a text box,
+// only the box/line objects themselves (create/delete/move/resize/rotate)
+// and the crop area.
+typedef enum
+{
+   UNDO_ADD,     // object created
+   UNDO_DELETE,  // object deleted
+   UNDO_MODIFY,  // object moved / resized / rotated
+   UNDO_CROP     // crop area changed
+} Undo_Type;
+
+typedef struct
+{
+   Undo_Type    type;
+
+   Evas_Object *obj;
+   Evas_Object *shadow;
+   Eina_Bool    is_line;
+
+   int          x1_before, y1_before, x2_before, y2_before;
+   double       ang_before;
+   int          x1_after,  y1_after,  x2_after,  y2_after;
+   double       ang_after;
+
+   int          crop_x_before, crop_y_before, crop_w_before, crop_h_before;
+   int          crop_x_after,  crop_y_after,  crop_w_after,  crop_h_after;
+} Undo_Action;
+
+#define UNDO_MAX 64
+
+static Eina_List *undo_stack = NULL;
+static Eina_List *redo_stack = NULL;
+
+// toolbar buttons kept in sync with whether undo_stack/redo_stack are empty
+static Evas_Object *o_undo_btn = NULL;
+static Evas_Object *o_redo_btn = NULL;
+
+static void
+undo_buttons_update(void)
+{
+   if (o_undo_btn) elm_object_disabled_set(o_undo_btn, !undo_stack);
+   if (o_redo_btn) elm_object_disabled_set(o_redo_btn, !redo_stack);
+}
+
+static void
+undo_reset(void)
+{
+   Undo_Action *ua;
+
+   // called when a brand new edit session starts: the window (and every
+   // object inside it) that any leftover actions refer to is already gone,
+   // so just drop the bookkeeping without touching any Evas_Object here
+   EINA_LIST_FREE(undo_stack, ua) free(ua);
+   EINA_LIST_FREE(redo_stack, ua) free(ua);
+   o_undo_btn = NULL;
+   o_redo_btn = NULL;
+}
+
+static void
+undo_action_discard(Undo_Action *ua, Eina_Bool from_undo_stack)
+{
+   // An object is only safe to permanently free once it is orphaned and
+   // hidden with nothing left in either history stack able to bring it
+   // back:
+   //  - an ADD action discarded from redo_stack means undo already hid the
+   //    object, and now redo is forgotten too -> hidden & orphaned.
+   //  - a DELETE action discarded from undo_stack (aged out past UNDO_MAX)
+   //    means the object was deleted and that delete can no longer be
+   //    undone -> hidden & orphaned.
+   // In every other case the object is currently visible/active and must
+   // be left alone.
+   Eina_Bool orphaned_hidden =
+     ((ua->type == UNDO_ADD)    && (!from_undo_stack)) ||
+     ((ua->type == UNDO_DELETE) && (from_undo_stack));
+
+   if (orphaned_hidden && ua->obj)
+     {
+        if (ua->shadow) evas_object_del(ua->shadow);
+        evas_object_del(ua->obj);
+     }
+   free(ua);
+}
+
+static void
+undo_stack_clear(Eina_List **stack, Eina_Bool is_undo_stack)
+{
+   Undo_Action *ua;
+
+   EINA_LIST_FREE(*stack, ua)
+     undo_action_discard(ua, is_undo_stack);
+}
+
+static void
+undo_push(Undo_Action *ua)
+{
+   // a brand new action invalidates anything that could have been redone
+   undo_stack_clear(&redo_stack, EINA_FALSE);
+   undo_stack = eina_list_prepend(undo_stack, ua);
+   if (eina_list_count(undo_stack) > UNDO_MAX)
+     {
+        Eina_List *last = eina_list_last(undo_stack);
+        Undo_Action *old = eina_list_data_get(last);
+
+        undo_stack = eina_list_remove_list(undo_stack, last);
+        undo_action_discard(old, EINA_TRUE);
+     }
+   undo_buttons_update();
+}
+
+static void
+undo_push_add(Evas_Object *obj, Evas_Object *shadow, Eina_Bool is_line)
+{
+   Undo_Action *ua = calloc(1, sizeof(Undo_Action));
+
+   if (!ua) return;
+   ua->type = UNDO_ADD;
+   ua->obj = obj;
+   ua->shadow = shadow;
+   ua->is_line = is_line;
+   undo_push(ua);
+}
+
+static void
+undo_push_delete(Evas_Object *obj, Evas_Object *shadow, Eina_Bool is_line)
+{
+   Undo_Action *ua = calloc(1, sizeof(Undo_Action));
+
+   if (!ua) return;
+   ua->type = UNDO_DELETE;
+   ua->obj = obj;
+   ua->shadow = shadow;
+   ua->is_line = is_line;
+   undo_push(ua);
+}
+
+static void
+undo_push_modify_line(Evas_Object *obj,
+                      int x1b, int y1b, int x2b, int y2b,
+                      int x1a, int y1a, int x2a, int y2a)
+{
+   Undo_Action *ua;
+
+   if ((x1b == x1a) && (y1b == y1a) && (x2b == x2a) && (y2b == y2a))
+     return; // nothing actually moved - don't clutter the history
+
+   ua = calloc(1, sizeof(Undo_Action));
+   if (!ua) return;
+   ua->type = UNDO_MODIFY;
+   ua->obj = obj;
+   ua->is_line = EINA_TRUE;
+   ua->x1_before = x1b; ua->y1_before = y1b;
+   ua->x2_before = x2b; ua->y2_before = y2b;
+   ua->x1_after = x1a; ua->y1_after = y1a;
+   ua->x2_after = x2a; ua->y2_after = y2a;
+   undo_push(ua);
+}
+
+static void
+undo_push_modify_box(Evas_Object *obj,
+                     int x1b, int y1b, int x2b, int y2b, double angb,
+                     int x1a, int y1a, int x2a, int y2a, double anga)
+{
+   Undo_Action *ua;
+
+   if ((x1b == x1a) && (y1b == y1a) && (x2b == x2a) && (y2b == y2a) &&
+       (angb == anga))
+     return; // nothing actually changed
+
+   ua = calloc(1, sizeof(Undo_Action));
+   if (!ua) return;
+   ua->type = UNDO_MODIFY;
+   ua->obj = obj;
+   ua->is_line = EINA_FALSE;
+   ua->x1_before = x1b; ua->y1_before = y1b;
+   ua->x2_before = x2b; ua->y2_before = y2b;
+   ua->ang_before = angb;
+   ua->x1_after = x1a; ua->y1_after = y1a;
+   ua->x2_after = x2a; ua->y2_after = y2a;
+   ua->ang_after = anga;
+   undo_push(ua);
+}
+
+static void
+undo_push_crop(int xb, int yb, int wb, int hb,
+              int xa, int ya, int wa, int ha)
+{
+   Undo_Action *ua;
+
+   if ((xb == xa) && (yb == ya) && (wb == wa) && (hb == ha))
+     return; // crop didn't actually change
+
+   ua = calloc(1, sizeof(Undo_Action));
+   if (!ua) return;
+   ua->type = UNDO_CROP;
+   ua->crop_x_before = xb; ua->crop_y_before = yb;
+   ua->crop_w_before = wb; ua->crop_h_before = hb;
+   ua->crop_x_after = xa; ua->crop_y_after = ya;
+   ua->crop_w_after = wa; ua->crop_h_after = ha;
+   undo_push(ua);
+}
+
+static void
+undo_object_show(Evas_Object *obj, Evas_Object *shadow, Eina_Bool is_line __UNUSED__)
+{
+   Eina_Bool selectable = (tool_mode == TOOL_MODIFY) || (tool_mode == TOOL_DELETE);
+
+   evas_object_show(obj);
+   if (shadow) evas_object_show(shadow);
+   evas_object_pass_events_set(obj, !selectable);
+   if (!eina_list_data_find(draw_objects, obj))
+     draw_objects = eina_list_append(draw_objects, obj);
+}
+
+static void
+undo_object_hide(Evas_Object *obj, Evas_Object *shadow)
+{
+   if (obj == box_obj_get()) draw_modify_clear();
+   draw_objects = eina_list_remove(draw_objects, obj);
+   evas_object_hide(obj);
+   if (shadow) evas_object_hide(shadow);
+}
+
+static void
+line_object_apply(Evas_Object *o, int x1, int y1, int x2, int y2)
+{
+   Evas_Object *shadow = evas_object_data_get(o, "shadow");
+   int inset = (int)(uintptr_t)evas_object_data_get(o, "inset");
+   int shadow_inset = inset;
+   int offx = 0, offy = 0;
+
+   line_map_apply(o, x1, y1, x2, y2, 0, 0, inset);
+   evas_object_data_set(o, "x1", (void *)(uintptr_t)x1);
+   evas_object_data_set(o, "y1", (void *)(uintptr_t)y1);
+   evas_object_data_set(o, "x2", (void *)(uintptr_t)x2);
+   evas_object_data_set(o, "y2", (void *)(uintptr_t)y2);
+
+   if (shadow)
+     {
+        const char *s;
+
+        shadow_inset = (int)(uintptr_t)evas_object_data_get(shadow, "inset");
+        s = edje_object_data_get(shadow, "offset_x");
+        if (s) offx = ELM_SCALE_SIZE(atoi(s));
+        s = edje_object_data_get(shadow, "offset_y");
+        if (s) offy = ELM_SCALE_SIZE(atoi(s));
+        line_map_apply(shadow, x1, y1, x2, y2, offx, offy, shadow_inset);
+     }
+
+   // if this object is the one currently under interactive modification,
+   // keep the drag state and handles in sync too
+   if ((modify_mode == MODIFY_LINE) && (o == o_line))
+     {
+        line_modify_coord_set(x1, y1, x2, y2);
+        draw_handle_line_update();
+     }
+}
+
+static void
+box_object_apply(Evas_Object *o, int x1, int y1, int x2, int y2, double ang)
+{
+   Evas_Object *shadow = evas_object_data_get(o, "shadow");
+   int minw = (int)(uintptr_t)evas_object_data_get(o, "minw");
+   int minh = (int)(uintptr_t)evas_object_data_get(o, "minh");
+
+   box_map_apply(o, x1, y1, x2, y2, minw, minh, 0, 0, ang);
+   evas_object_data_set(o, "x1", (void *)(uintptr_t)x1);
+   evas_object_data_set(o, "y1", (void *)(uintptr_t)y1);
+   evas_object_data_set(o, "x2", (void *)(uintptr_t)x2);
+   evas_object_data_set(o, "y2", (void *)(uintptr_t)y2);
+   evas_object_data_set(o, "angle", (void *)(uintptr_t)(ang * 1000000.0));
+
+   if (shadow)
+     {
+        int shadow_minw = (int)(uintptr_t)evas_object_data_get(shadow, "minw");
+        int shadow_minh = (int)(uintptr_t)evas_object_data_get(shadow, "minh");
+        int offx = 0, offy = 0;
+        const char *s;
+
+        s = edje_object_data_get(shadow, "offset_x");
+        if (s) offx = ELM_SCALE_SIZE(atoi(s));
+        s = edje_object_data_get(shadow, "offset_y");
+        if (s) offy = ELM_SCALE_SIZE(atoi(s));
+        box_map_apply(shadow, x1, y1, x2, y2, shadow_minw, shadow_minh, offx, offy, ang);
+     }
+
+   // if this object is the one currently under interactive modification,
+   // keep the drag state and handles in sync too (bypass the 45-degree
+   // snapping in box_modify_coord_set - we want the exact restored angle)
+   if ((modify_mode == MODIFY_BOX) && (o == box_obj_get()))
+     {
+        box_x1 = x1; box_y1 = y1;
+        box_x2 = x2; box_y2 = y2;
+        box_angle = ang;
+        draw_handle_box_update();
+     }
+}
+
+static void
+crop_object_apply(int x, int y, int w, int h)
+{
+   crop_area.x = x;
+   crop_area.y = y;
+   crop_area.w = w;
+   crop_area.h = h;
+   crop_export();
+   if ((w > 5) || (h > 5))
+     {
+        crop_create();
+        crop_mode = CROP_AREA;
+        crop_position();
+     }
+   else
+     {
+        crop_clear();
+     }
+}
+
+static void
+undo_do(void)
+{
+   Eina_List *first;
+   Undo_Action *ua;
+
+   if (!undo_stack) return;
+   first = undo_stack;
+   ua = eina_list_data_get(first);
+   undo_stack = eina_list_remove_list(undo_stack, first);
+
+   switch (ua->type)
+     {
+      case UNDO_ADD:
+        undo_object_hide(ua->obj, ua->shadow);
+        break;
+
+      case UNDO_DELETE:
+        undo_object_show(ua->obj, ua->shadow, ua->is_line);
+        break;
+
+      case UNDO_MODIFY:
+        if (ua->is_line)
+          line_object_apply(ua->obj, ua->x1_before, ua->y1_before,
+                            ua->x2_before, ua->y2_before);
+        else
+          box_object_apply(ua->obj, ua->x1_before, ua->y1_before,
+                           ua->x2_before, ua->y2_before, ua->ang_before);
+        break;
+
+      case UNDO_CROP:
+        crop_object_apply(ua->crop_x_before, ua->crop_y_before,
+                          ua->crop_w_before, ua->crop_h_before);
+        break;
+     }
+
+   redo_stack = eina_list_prepend(redo_stack, ua);
+   undo_buttons_update();
+}
+
+static void
+redo_do(void)
+{
+   Eina_List *first;
+   Undo_Action *ua;
+
+   if (!redo_stack) return;
+   first = redo_stack;
+   ua = eina_list_data_get(first);
+   redo_stack = eina_list_remove_list(redo_stack, first);
+
+   switch (ua->type)
+     {
+      case UNDO_ADD:
+        undo_object_show(ua->obj, ua->shadow, ua->is_line);
+        break;
+
+      case UNDO_DELETE:
+        undo_object_hide(ua->obj, ua->shadow);
+        break;
+
+      case UNDO_MODIFY:
+        if (ua->is_line)
+          line_object_apply(ua->obj, ua->x1_after, ua->y1_after,
+                            ua->x2_after, ua->y2_after);
+        else
+          box_object_apply(ua->obj, ua->x1_after, ua->y1_after,
+                           ua->x2_after, ua->y2_after, ua->ang_after);
+        break;
+
+      case UNDO_CROP:
+        crop_object_apply(ua->crop_x_after, ua->crop_y_after,
+                          ua->crop_w_after, ua->crop_h_after);
+        break;
+     }
+
+   undo_stack = eina_list_prepend(undo_stack, ua);
+   undo_buttons_update();
+}
+
+Eina_Bool
+ui_edit_undo_possible(void)
+{
+   return undo_stack ? EINA_TRUE : EINA_FALSE;
+}
+
+Eina_Bool
+ui_edit_redo_possible(void)
+{
+   return redo_stack ? EINA_TRUE : EINA_FALSE;
+}
+
+void
+ui_edit_undo(void)
+{
+   undo_do();
+}
+
+void
+ui_edit_redo(void)
+{
+   redo_do();
 }
 //
 //////////////////////////////////////////////////////////////////////////////
@@ -1492,6 +1985,18 @@ _cb_tool_zoom_minus(void *data __UNUSED__, Evas_Object *obj __UNUSED__, void *in
 {
    elm_scroller_gravity_set(o_scroll, 0.5, 0.5);
    zoom_set(zoom - 1);
+}
+
+static void
+_cb_tool_undo(void *data __UNUSED__, Evas_Object *obj __UNUSED__, void *info __UNUSED__)
+{
+   ui_edit_undo();
+}
+
+static void
+_cb_tool_redo(void *data __UNUSED__, Evas_Object *obj __UNUSED__, void *info __UNUSED__)
+{
+   ui_edit_redo();
 }
 
 static void
@@ -1911,6 +2416,7 @@ ui_edit(Evas_Object *window, Evas_Object *o_bg, E_Zone *zone,
 
    o_crop = NULL;
    crop_mouse_pressed = EINA_FALSE;
+   undo_reset();
    crop_area.x = 0;
    crop_area.y = 0;
    crop_area.w = 0;
@@ -2122,6 +2628,24 @@ ui_edit(Evas_Object *window, Evas_Object *o_bg, E_Zone *zone,
    evas_object_smart_callback_add(o, "clicked", _cb_tool_zoom_minus, NULL);
    evas_object_show(o);
 
+   o = ui_icon_button_standard_add(win, "edit-undo");
+   elm_object_style_set(o, "overlay");
+   elm_object_tooltip_text_set(o, _("Undo"));
+   elm_table_pack(tb, o, 4, 1, 1, 1);
+   evas_object_smart_callback_add(o, "clicked", _cb_tool_undo, NULL);
+   evas_object_show(o);
+   o_undo_btn = o;
+
+   o = ui_icon_button_standard_add(win, "edit-redo");
+   elm_object_style_set(o, "overlay");
+   elm_object_tooltip_text_set(o, _("Redo"));
+   elm_table_pack(tb, o, 4, 2, 1, 1);
+   evas_object_smart_callback_add(o, "clicked", _cb_tool_redo, NULL);
+   evas_object_show(o);
+   o_redo_btn = o;
+
+   undo_buttons_update();
+
    img_w = edit_w = sw;
    img_h = edit_h = sh;
 
@@ -2172,6 +2696,7 @@ ui_edit(Evas_Object *window, Evas_Object *o_bg, E_Zone *zone,
    evas_object_event_callback_add(o, EVAS_CALLBACK_MOUSE_DOWN, _cb_edit_mouse_down, NULL);
    evas_object_event_callback_add(o, EVAS_CALLBACK_MOUSE_UP, _cb_edit_mouse_up, NULL);
    evas_object_event_callback_add(o, EVAS_CALLBACK_MOUSE_MOVE, _cb_edit_mouse_move, NULL);
+   evas_object_focus_set(o, EINA_TRUE);
    evas_object_show(o);
 
    return bx_ret;
