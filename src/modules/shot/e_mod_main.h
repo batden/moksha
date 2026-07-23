@@ -34,6 +34,8 @@ void         ui_edit_crop_screen_set(int x, int y, int w, int h);
 
 void         win_delay(void);
 void         delay_abort(void);
+void         ui_edit_undo(void);
+void         ui_edit_redo(void);
 
 
 extern Evas_Object *win;
