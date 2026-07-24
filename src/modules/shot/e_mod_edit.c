@@ -2614,16 +2614,19 @@ ui_edit(Evas_Object *window, Evas_Object *o_bg, E_Zone *zone,
 
    o = ui_icon_button_standard_add(win, "zoom-in");
    elm_object_style_set(o, "overlay");
+   elm_object_tooltip_text_set(o, _("Zoom in"));
    elm_table_pack(tb, o, 3, 1, 1, 1);
    evas_object_smart_callback_add(o, "clicked", _cb_tool_zoom_plus, NULL);
 
    o = ui_icon_button_standard_add(win, "zoom-original");
    elm_object_style_set(o, "overlay");
+   elm_object_tooltip_text_set(o, _("Zoom reset"));
    elm_table_pack(tb, o, 3, 2, 1, 1);
    evas_object_smart_callback_add(o, "clicked", _cb_tool_zoom_reset, NULL);
 
    o = ui_icon_button_standard_add(win, "zoom-out");
    elm_object_style_set(o, "overlay");
+   elm_object_tooltip_text_set(o, _("Zoom out"));
    elm_table_pack(tb, o, 3, 3, 1, 1);
    evas_object_smart_callback_add(o, "clicked", _cb_tool_zoom_minus, NULL);
    evas_object_show(o);
@@ -2639,7 +2642,7 @@ ui_edit(Evas_Object *window, Evas_Object *o_bg, E_Zone *zone,
    o = ui_icon_button_standard_add(win, "edit-redo");
    elm_object_style_set(o, "overlay");
    elm_object_tooltip_text_set(o, _("Redo"));
-   elm_table_pack(tb, o, 4, 2, 1, 1);
+   elm_table_pack(tb, o, 4, 3, 1, 1);
    evas_object_smart_callback_add(o, "clicked", _cb_tool_redo, NULL);
    evas_object_show(o);
    o_redo_btn = o;
