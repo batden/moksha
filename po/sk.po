@@ -9664,27 +9664,24 @@ msgid "Color"
 msgstr "Farba"
 
 #: src/modules/shot/e_mod_edit.c:2617
-#, fuzzy
 msgid "Zoom in"
 msgstr "Priblížiť"
 
 #: src/modules/shot/e_mod_edit.c:2623
-#, fuzzy
 msgid "Zoom reset"
-msgstr "Oddialiť"
+msgstr "Pôvodné"
 
 #: src/modules/shot/e_mod_edit.c:2629
-#, fuzzy
 msgid "Zoom out"
 msgstr "Oddialiť"
 
 #: src/modules/shot/e_mod_edit.c:2636
 msgid "Undo"
-msgstr ""
+msgstr "Spať"
 
 #: src/modules/shot/e_mod_edit.c:2644
 msgid "Redo"
-msgstr ""
+msgstr "Znovu"
 
 #: src/modules/shot/e_mod_main.c:346 src/modules/shot/e_mod_main.c:400
 msgid "Take Shot"
