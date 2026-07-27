@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: enlightenment 0.4.1.18338\n"
 "Report-Msgid-Bugs-To: moksha@bodhilinux.com\n"
-"POT-Creation-Date: 2026-06-13 07:08+0200\n"
+"POT-Creation-Date: 2026-07-27 17:18+0200\n"
 "PO-Revision-Date: 2025-03-11 11:37+0530\n"
 "Last-Translator: Indraneel Rajeevan <https://github.com/indraneel12>\n"
 "Language-Team: Malayalam\n"
@@ -868,7 +868,7 @@ msgstr "തിരഞ്ഞെടുക്കുക"
 #: src/modules/syscon/e_syscon.c:122
 #: src/modules/quickaccess/e_mod_quickaccess.c:319
 #: src/modules/quickaccess/e_mod_quickaccess.c:381
-#: src/modules/shot/e_mod_delay.c:86 src/modules/shot/e_mod_preview.c:140
+#: src/modules/shot/e_mod_delay.c:86 src/modules/shot/e_mod_preview.c:144
 #: src/modules/shot/e_mod_share.c:288 src/modules/shot/e_mod_share.c:347
 #: src/modules/xkbswitch/e_mod_config.c:587
 msgid "Cancel"
@@ -1255,7 +1255,7 @@ msgid "Cut"
 msgstr "കട്ട് ചെയ്യുക"
 
 #: src/bin/e_entry.c:514 src/bin/e_fm.c:9123 src/bin/e_fm.c:11650
-#: src/modules/shot/e_mod_preview.c:131
+#: src/modules/shot/e_mod_preview.c:135
 msgid "Copy"
 msgstr "കോപ്പി ചെയ്യുക"
 
@@ -9527,11 +9527,11 @@ msgstr ""
 msgid "Systray"
 msgstr "സിസ്‌ട്രേ"
 
-#: src/modules/shot/e_mod_delay.c:47 src/modules/shot/e_mod_preview.c:89
+#: src/modules/shot/e_mod_delay.c:47 src/modules/shot/e_mod_preview.c:93
 msgid "Select action to take with screenshot"
 msgstr ""
 
-#: src/modules/shot/e_mod_delay.c:59 src/modules/shot/e_mod_preview.c:136
+#: src/modules/shot/e_mod_delay.c:59 src/modules/shot/e_mod_preview.c:140
 msgid "Delay"
 msgstr ""
 
@@ -9540,117 +9540,140 @@ msgstr ""
 msgid "%1.1f sec"
 msgstr "%1.1f സെക്കൻഡ്"
 
-#: src/modules/shot/e_mod_edit.c:1968
+#: src/modules/shot/e_mod_edit.c:2474
 #, fuzzy
 msgid "Tools"
 msgstr "ടൂൾടിപ്പുകൾ"
 
-#: src/modules/shot/e_mod_edit.c:1980
+#: src/modules/shot/e_mod_edit.c:2486
 #, fuzzy
 msgid "Select crop area"
 msgstr "ഒരെണ്ണം തിരഞ്ഞെടുക്കുക"
 
-#: src/modules/shot/e_mod_edit.c:1981
+#: src/modules/shot/e_mod_edit.c:2487
 #, fuzzy
 msgid "Modify objects"
 msgstr "പരിഷ്ക്കരിക്കുക"
 
-#: src/modules/shot/e_mod_edit.c:1982
+#: src/modules/shot/e_mod_edit.c:2488
 #, fuzzy
 msgid "Delete objects"
 msgstr "ഡിലീറ്റ് പൂർത്തിയായി"
 
-#: src/modules/shot/e_mod_edit.c:1991
+#: src/modules/shot/e_mod_edit.c:2497
 #, fuzzy
 msgid "Single arrow line"
 msgstr "ഒറ്റ മൗസ് ക്ലിക്ക്"
 
-#: src/modules/shot/e_mod_edit.c:1992
+#: src/modules/shot/e_mod_edit.c:2498
 msgid "Double arrow line"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:1993
+#: src/modules/shot/e_mod_edit.c:2499
 #, fuzzy
 msgid "Plain line"
 msgstr "സാധാരണ"
 
-#: src/modules/shot/e_mod_edit.c:1994
+#: src/modules/shot/e_mod_edit.c:2500
 msgid "Solid box"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:1996
+#: src/modules/shot/e_mod_edit.c:2502
 msgid "Malloc"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:1997
+#: src/modules/shot/e_mod_edit.c:2503
 msgid "Malloc (evil)"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:1998
+#: src/modules/shot/e_mod_edit.c:2504
 #, fuzzy
 msgid "Pointing finger"
 msgstr "പോയിൻ്റർ"
 
-#: src/modules/shot/e_mod_edit.c:1999
+#: src/modules/shot/e_mod_edit.c:2505
 msgid "Enlightenment logo"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2001
+#: src/modules/shot/e_mod_edit.c:2507
 msgid "Foot"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2002
+#: src/modules/shot/e_mod_edit.c:2508
 msgid "Silly walk"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2003
+#: src/modules/shot/e_mod_edit.c:2509
 #, fuzzy
 msgid "Box outline"
 msgstr "രൂപരേഖ:"
 
-#: src/modules/shot/e_mod_edit.c:2004
+#: src/modules/shot/e_mod_edit.c:2510
 #, fuzzy
 msgid "Circle outline"
 msgstr "സർക്കുലർ സ്ക്രോളിംഗ്"
 
-#: src/modules/shot/e_mod_edit.c:2006
+#: src/modules/shot/e_mod_edit.c:2512
 #, fuzzy
 msgid "Plain text"
 msgstr "സാധാരണ"
 
-#: src/modules/shot/e_mod_edit.c:2007
+#: src/modules/shot/e_mod_edit.c:2513
 #, fuzzy
 msgid "Text box"
 msgstr "വാചകം"
 
-#: src/modules/shot/e_mod_edit.c:2008
+#: src/modules/shot/e_mod_edit.c:2514
 msgid "Text thought bubble"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2009
+#: src/modules/shot/e_mod_edit.c:2515
 msgid "Text thought bubble 2"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2011
+#: src/modules/shot/e_mod_edit.c:2517
 msgid "Speech bubble"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2012
+#: src/modules/shot/e_mod_edit.c:2518
 msgid "Speech bubble 2"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2013
+#: src/modules/shot/e_mod_edit.c:2519
 msgid "Kaboom splat"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2014
+#: src/modules/shot/e_mod_edit.c:2520
 msgid "Pow explode"
 msgstr ""
 
-#: src/modules/shot/e_mod_edit.c:2022
+#: src/modules/shot/e_mod_edit.c:2528
 #, fuzzy
 msgid "Color"
 msgstr "നിറങ്ങൾ"
+
+#: src/modules/shot/e_mod_edit.c:2617
+#, fuzzy
+msgid "Zoom in"
+msgstr "സൂം-ഇൻ"
+
+#: src/modules/shot/e_mod_edit.c:2623
+#, fuzzy
+msgid "Zoom reset"
+msgstr "സൂം-ഔട്ട്"
+
+#: src/modules/shot/e_mod_edit.c:2629
+#, fuzzy
+msgid "Zoom out"
+msgstr "സൂം-ഔട്ട്"
+
+#: src/modules/shot/e_mod_edit.c:2636
+msgid "Undo"
+msgstr ""
+
+#: src/modules/shot/e_mod_edit.c:2644
+msgid "Redo"
+msgstr ""
 
 #: src/modules/shot/e_mod_main.c:346 src/modules/shot/e_mod_main.c:400
 msgid "Take Shot"
@@ -9669,15 +9692,15 @@ msgstr "നെറ്റ്‌വർക്ക് ആരംഭിക്കാൻ �
 msgid "Take Screenshot with Delay"
 msgstr "സ്ക്രീൻഷോട്ട് എടുക്കുക"
 
-#: src/modules/shot/e_mod_preview.c:109
+#: src/modules/shot/e_mod_preview.c:113
 msgid "Quality"
 msgstr "ഗുണനിലവാരം"
 
-#: src/modules/shot/e_mod_preview.c:125
+#: src/modules/shot/e_mod_preview.c:129
 msgid "Save"
 msgstr "സേവുചെയ്യുക"
 
-#: src/modules/shot/e_mod_preview.c:128
+#: src/modules/shot/e_mod_preview.c:132
 msgid "Share"
 msgstr "പങ്കിടുക"
 
