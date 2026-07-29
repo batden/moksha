@@ -6989,6 +6989,14 @@ _e_border_stay_within_container(E_Border *bd, int x, int y, int *new_x, int *new
      }
 }
 
+static void
+_window_snap_unmaximize_reset(E_Border *bd)
+{
+   e_border_unmaximize(bd, E_MAXIMIZE_BOTH);
+   bd->mouse.last_down[bd->moveinfo.down.button - 1].x =
+                       bd->moveinfo.down.mx - bd->w / 2;
+}
+
 static Eina_Bool
 window_snap_do(E_Border *bd)
 {
@@ -7036,7 +7044,10 @@ window_snap_do(E_Border *bd)
            (bd->mouse.current.my > zy - drag_gap) &&
            (bd->mouse.current.mx > zx + drag_gap * 2) &&
            (bd->mouse.current.mx < zx + zw - drag_gap * 2))
-         e_border_maximize(bd, e_config->maximize_policy);
+        {
+           e_border_maximize(bd, e_config->maximize_policy);
+           return ECORE_CALLBACK_PASS_ON;
+        }
 
        if ((bd->maximized & E_MAXIMIZE_DIRECTION) > E_MAXIMIZE_BOTH)
          {
@@ -7044,22 +7055,14 @@ window_snap_do(E_Border *bd)
                (bd->mouse.current.my < bd->moveinfo.down.my - drag_gap / 2) ||
                (bd->mouse.current.mx > bd->moveinfo.down.mx + drag_gap / 2) ||
                (bd->mouse.current.mx < bd->moveinfo.down.mx - drag_gap / 2))
-             {
-               e_border_unmaximize(bd, E_MAXIMIZE_BOTH);
-               bd->mouse.last_down[bd->moveinfo.down.button - 1].x =
-                                   bd->moveinfo.down.mx - bd->w /2;
-             }
+             _window_snap_unmaximize_reset(bd);
          }
 
        if ((bd->maximized & E_MAXIMIZE_DIRECTION) == E_MAXIMIZE_BOTH)
          {
            if ((bd->mouse.current.my > zy + drag_gap / 2) ||
                (bd->mouse.current.my < zy - drag_gap / 2))
-             {
-               e_border_unmaximize(bd, E_MAXIMIZE_BOTH);
-               bd->mouse.last_down[bd->moveinfo.down.button - 1].x =
-                                   bd->moveinfo.down.mx - bd->w /2;
-             }
+             _window_snap_unmaximize_reset(bd);
          }
      }
    return ECORE_CALLBACK_DONE;
