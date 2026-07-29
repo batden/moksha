@@ -9544,11 +9544,11 @@ msgstr "Upozorňovací oblast"
 
 #: src/modules/shot/e_mod_delay.c:47 src/modules/shot/e_mod_preview.c:93
 msgid "Select action to take with screenshot"
-msgstr ""
+msgstr "Vyberte akci se snímkem obrazovky"
 
 #: src/modules/shot/e_mod_delay.c:59 src/modules/shot/e_mod_preview.c:140
 msgid "Delay"
-msgstr ""
+msgstr "Zpoždění"
 
 #: src/modules/shot/e_mod_delay.c:61
 #, c-format
