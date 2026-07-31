@@ -9516,11 +9516,11 @@ msgstr "Bandeja del sistema"
 
 #: src/modules/shot/e_mod_delay.c:47 src/modules/shot/e_mod_preview.c:93
 msgid "Select action to take with screenshot"
-msgstr ""
+msgstr "Seleccione la acción que se realizará con la captura de pantalla"
 
 #: src/modules/shot/e_mod_delay.c:59 src/modules/shot/e_mod_preview.c:140
 msgid "Delay"
-msgstr ""
+msgstr "Retraso"
 
 #: src/modules/shot/e_mod_delay.c:61
 #, c-format
@@ -9628,27 +9628,24 @@ msgid "Color"
 msgstr "Color"
 
 #: src/modules/shot/e_mod_edit.c:2617
-#, fuzzy
 msgid "Zoom in"
-msgstr "Aumentar zoom"
+msgstr "Ampliar zoom"
 
 #: src/modules/shot/e_mod_edit.c:2623
-#, fuzzy
 msgid "Zoom reset"
-msgstr "Disminuir zoom"
+msgstr "Restablecer zoom"
 
 #: src/modules/shot/e_mod_edit.c:2629
-#, fuzzy
 msgid "Zoom out"
-msgstr "Disminuir zoom"
+msgstr "Reducir zoom"
 
 #: src/modules/shot/e_mod_edit.c:2636
 msgid "Undo"
-msgstr ""
+msgstr "Deshacer"
 
 #: src/modules/shot/e_mod_edit.c:2644
 msgid "Redo"
-msgstr ""
+msgstr "Rehacer"
 
 #: src/modules/shot/e_mod_main.c:346 src/modules/shot/e_mod_main.c:400
 msgid "Take Shot"
@@ -10402,171 +10399,3 @@ msgstr "Volumen silenciado"
 msgid "Separator"
 msgstr "Separador"
 
-#~ msgid "Screenshot"
-#~ msgstr "Captura de Pantalla"
-
-#~ msgid "Screenshot in: "
-#~ msgstr "Captura de Pantalla en: "
-
-#~ msgid "Screenshot stored in"
-#~ msgstr "Captura de Pantalla guardada en"
-
-#~ msgid "Error - Folder does not exist"
-#~ msgstr "Error - El directorio no existe"
-
-#~ msgid ""
-#~ "Change folder in Take Screenshot settings<br><br>Menu-Settings-All-"
-#~ "Advanced-Take Screenshot<br><br>Would you like to set up it now?"
-#~ msgstr ""
-#~ "Cambio de folder en la configuración de Captura de Pantalla<br><br>¿Le "
-#~ "gustaría configurar ahora mismo?"
-
-#~ msgid "Error saving screenshot file"
-#~ msgstr "Error guardando la captura de pantalla"
-
-#, c-format
-#~ msgid "Path: %s"
-#~ msgstr "Ruta: %s"
-
-#~ msgid "Error - Unknown format"
-#~ msgstr "Error - Formato desconocido"
-
-#~ msgid "Please use 'Perfect quality'<br>only for copying into Clipboard."
-#~ msgstr ""
-#~ "Por favor use 'Calidad  Perfecta'<br>sólo para copiar al portapapeles."
-
-#~ msgid ""
-#~ "File has an unspecified extension.<br>Please use '.jpg' or '.png' "
-#~ "extensions<br>only as other formats are not<br>supported currently."
-#~ msgstr ""
-#~ "El archivo tiene una extensión no especificada.<br> Por favor, use las "
-#~ "extensiones '.jpg' o '.png'<br>porque otros formatos no "
-#~ "están<br>soportados correctamente."
-
-#~ msgid "Select screenshot save location"
-#~ msgstr "Seleccione donde guardar la captura de pantalla"
-
-#~ msgid "Error - Can't create file"
-#~ msgstr "Error - No se puede crear el archivo"
-
-#, c-format
-#~ msgid "Cannot create temporary file '%s': %s"
-#~ msgstr "No se puede crear el archivo temporal '%s': %s"
-
-#~ msgid "Error - Can't open file"
-#~ msgstr "Error - No se puede abrir el archivo"
-
-#, c-format
-#~ msgid "Cannot open temporary file '%s': %s"
-#~ msgstr "No se puede abrir el archivo temporal '%s': %s"
-
-#~ msgid "Error - Bad size"
-#~ msgstr "Error - Tamaño incorrecto"
-
-#, c-format
-#~ msgid "Cannot get size of file '%s'"
-#~ msgstr "No se puede obtener el tamaño del archivo '%s'"
-
-#~ msgid "Error - Can't allocate memory"
-#~ msgstr "Error - No se puede asignar memoria"
-
-#, c-format
-#~ msgid "Cannot allocate memory for picture: %s"
-#~ msgstr "No se puede asignar memoria para la imagen: %s"
-
-#~ msgid "Error - Can't read picture"
-#~ msgstr "Error - No se puede leer la imagen"
-
-#~ msgid "Cannot read picture"
-#~ msgstr "No se puede leer la imagen"
-
-#~ msgid "Copy link"
-#~ msgstr "Copiar URL"
-
-#~ msgid ""
-#~ "This image will be uploaded<br>to enlightenment.org. It will be publicly "
-#~ "visible."
-#~ msgstr ""
-#~ "Esta imagen se subirá a enlightenment.org <br> Será visible públicamente."
-
-#~ msgid "Confirm"
-#~ msgstr "Confirmar"
-
-#~ msgid "Where to put Screenshot..."
-#~ msgstr "Dónde poner la captura de pantalla..."
-
-#~ msgid "Perfect"
-#~ msgstr "Perfecto"
-
-#, c-format
-#~ msgid ""
-#~ "Select the screenshot mode... <br>Delay time is set in the Screenshot "
-#~ "module settings<br>The current delay time: <b> %d s</b>"
-#~ msgstr ""
-#~ "Seleccione el modo de captura de pantalla... <br>El tiempo de espera fue "
-#~ "fijado en el módulo de configuración para Captura de Pantalla<br>El valor "
-#~ "actual del tiempo de espera: <b> %d s</b>"
-
-#~ msgid "Instant shot"
-#~ msgstr "Captura Instantánea"
-
-#~ msgid "Delayed shot"
-#~ msgstr "Captura retardada"
-
-#~ msgid "Screenshot Settings"
-#~ msgstr "Configuración de captura de pantalla"
-
-#~ msgid " Show the screenshot mode dialog"
-#~ msgstr " Mostrar el diálogo de modo captura de pantalla"
-
-#~ msgid " Screenshot guide (quality/share/save)"
-#~ msgstr " Guía de captura de pantalla (Calidad/Compartir/Guardar)"
-
-#~ msgid " Show notifications"
-#~ msgstr " Mostrar notificaciones"
-
-#~ msgid " Copy to Clipboard"
-#~ msgstr " Copiar al portapapeles"
-
-#~ msgid " Launch app after screenshot"
-#~ msgstr " Abrir app después de captura de pantalla"
-
-#~ msgid "Application for opening:"
-#~ msgstr "Aplicación para abrir:"
-
-#~ msgid "Folder for saving screenshots:"
-#~ msgstr "Folder para capturas de pantalla guardadas:"
-
-#~ msgid "Delay time [s]"
-#~ msgstr "Tiempo de espera [s]"
-
-#~ msgid "Image quality [50-90 = jpg, 100 = png]"
-#~ msgstr "Calidad de la imagen [50-90 = jpg, 100 = png]"
-
-#~ msgid "Info"
-#~ msgstr "Info"
-
-#~ msgid "Alt+PrtSc: screenshot active window"
-#~ msgstr "Alt+PtrSc: Captura de pantalla de la ventana activa"
-
-#~ msgid "Moksha Settings Write Problems"
-#~ msgstr "Problemas de escritura en las preferencias de Moksha"
-
-#, c-format
-#~ msgid ""
-#~ "Moksha has had an error while moving config files<br>from:"
-#~ "<br>%s<br><br>to:<br>%s<br><br>The rest of the write has been aborted for "
-#~ "safety.<br>"
-#~ msgstr ""
-#~ "Ha habido un error mientras se movían archivos de configuración de: %s a "
-#~ "<br>%s<br>Se ha cancelado la operación por seguridad.<br>"
-
-#, c-format
-#~ msgid ""
-#~ "Moksha has had an error while writing<br>its config file."
-#~ "<br>%s<br><br>The file where the error occurred was:<br>%s<br><br>This "
-#~ "file has been deleted to avoid corrupt data.<br>"
-#~ msgstr ""
-#~ "Ha habido un error mientras se estaba escribiendo en el archivo de "
-#~ "preferencias de Moksha.<br>%s<br><br>El archivo es:<br>%s<br><br> Dicho "
-#~ "archivo ha sido eliminado para evitar corrupción de datos.<br>"
