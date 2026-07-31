@@ -69,8 +69,10 @@ _cb_key_down(void *data __UNUSED__, Evas *e __UNUSED__, Evas_Object *obj __UNUSE
    /* CTRL D: set delay */
    if (!strcmp(ev->key, "d") && evas_key_modifier_is_set(ev->modifiers, "Control"))
      _win_delay_cb(NULL, NULL);
+   /* CTRL D: undo */
    if (!strcmp(ev->key, "z") && evas_key_modifier_is_set(ev->modifiers, "Control"))
      ui_edit_undo();
+   /* CTRL D: redo */
    if (!strcmp(ev->key, "y") && evas_key_modifier_is_set(ev->modifiers, "Control"))
      ui_edit_redo();
 }
