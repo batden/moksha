@@ -9552,11 +9552,11 @@ msgstr "Системный лоток"
 
 #: src/modules/shot/e_mod_delay.c:47 src/modules/shot/e_mod_preview.c:93
 msgid "Select action to take with screenshot"
-msgstr ""
+msgstr "Выберите, что вы хотите сделать со снимком экрама"
 
 #: src/modules/shot/e_mod_delay.c:59 src/modules/shot/e_mod_preview.c:140
 msgid "Delay"
-msgstr ""
+msgstr "Задержка"
 
 #: src/modules/shot/e_mod_delay.c:61
 #, fuzzy, c-format
@@ -9692,11 +9692,11 @@ msgstr "Отдаление изображения"
 
 #: src/modules/shot/e_mod_edit.c:2636
 msgid "Undo"
-msgstr ""
+msgstr "Отменить"
 
 #: src/modules/shot/e_mod_edit.c:2644
 msgid "Redo"
-msgstr ""
+msgstr "Повторить"
 
 #: src/modules/shot/e_mod_main.c:346 src/modules/shot/e_mod_main.c:400
 msgid "Take Shot"
@@ -9737,6 +9737,8 @@ msgid ""
 "No filemanager action and/or module was found.<br>Cannot show the location "
 "of your screenshots."
 msgstr ""
+"Не было найдено действия или модуля файлового менеджера. Невозможно показать "
+"расположение ваших снимков экрана."
 
 #: src/modules/shot/e_mod_share.c:168
 #, fuzzy, c-format
