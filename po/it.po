@@ -51,7 +51,7 @@ msgid ""
 msgstr ""
 "<title>Copyright &copy; 2026, del Development Team di Moksha.</><br><br>Ci "
 "auguriamo che vi piacerà usare questo software tanto quanto a noi è piaciuto "
-"scriverlo.<br><br>Per contattarci visitate:<br><hilight>http://"
+"scriverlo.<br><br>Per contattarci visitate:<br><hilight>https://"
 "www.bodhilinux.com</><br><br>"
 
 #: src/bin/e_about.c:71
