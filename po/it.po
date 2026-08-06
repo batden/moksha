@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Moksha 0.17\n"
 "Report-Msgid-Bugs-To: moksha@bodhilinux.com\n"
 "POT-Creation-Date: 2026-07-27 17:18+0200\n"
-"PO-Revision-Date: 2025-02-27 18:26-0000\n"
+"PO-Revision-Date: 2026-08-05 22:38+0200\n"
 "Last-Translator: diekrz2\n"
 "Language-Team: none\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
-"X-Generator: Poedit 3.0.1\n"
+"X-Generator: Poedit 3.9\n"
 
 #: src/bin/e_about.c:18
 msgid "About Moksha"
@@ -51,8 +51,8 @@ msgid ""
 msgstr ""
 "<title>Copyright &copy; 2026, del Development Team di Moksha.</><br><br>Ci "
 "auguriamo che vi piacerà usare questo software tanto quanto a noi è piaciuto "
-"scriverlo.<br><br>Per contattarci visitate:<br><hilight>http://www."
-"bodhilinux.com</><br><br>"
+"scriverlo.<br><br>Per contattarci visitate:<br><hilight>https://"
+"www.bodhilinux.com</><br><br>"
 
 #: src/bin/e_about.c:71
 msgid "<title>The Team</><br><br>"
@@ -1307,7 +1307,7 @@ msgid ""
 "failed to start."
 msgstr ""
 "Moksha non ha potuto avviare l'applicazione:<br><br>%s<br><br>L'applicazione "
-"non è partita"
+"non è partita."
 
 #: src/bin/e_exec.c:873
 msgid "Application Execution Error"
@@ -1316,7 +1316,7 @@ msgstr "Errore d'esecuzione dell'applicazione"
 #: src/bin/e_exec.c:886 src/bin/e_exec.c:888
 #, c-format
 msgid "%s stopped running unexpectedly."
-msgstr "L'esecuzione di %s è terminata inaspettatamente"
+msgstr "L'esecuzione di %s è terminata inaspettatamente."
 
 #: src/bin/e_exec.c:894
 #, c-format
@@ -1326,52 +1326,52 @@ msgstr "%2$s ha restituito il codice d'uscita %1$i."
 #: src/bin/e_exec.c:902
 #, c-format
 msgid "%s was interrupted by an Interrupt Signal."
-msgstr "%s è stato fermato da un segnale d'interruzione"
+msgstr "%s è stato fermato da un segnale d'interruzione."
 
 #: src/bin/e_exec.c:905
 #, c-format
 msgid "%s was interrupted by a Quit Signal."
-msgstr "%s è stato fermato da un segnale di uscita"
+msgstr "%s è stato fermato da un segnale di uscita."
 
 #: src/bin/e_exec.c:909
 #, c-format
 msgid "%s was interrupted by an Abort Signal."
-msgstr "%s è stato fermato da un segnale di aborto"
+msgstr "%s è stato fermato da un segnale di aborto."
 
 #: src/bin/e_exec.c:912
 #, c-format
 msgid "%s was interrupted by a Floating Point Error."
-msgstr "%s è stato fermato da un errore di virgola mobile"
+msgstr "%s è stato fermato da un errore di virgola mobile."
 
 #: src/bin/e_exec.c:916
 #, c-format
 msgid "%s was interrupted by an Uninterruptible Kill Signal."
-msgstr "%s è stato fermato da un segnale di uccisione non interrompibile"
+msgstr "%s è stato fermato da un segnale di uccisione non interrompibile."
 
 #: src/bin/e_exec.c:920
 #, c-format
 msgid "%s was interrupted by a Segmentation Fault."
-msgstr "%s è stato fermato da un errore di segmentazione"
+msgstr "%s è stato fermato da un errore di segmentazione."
 
 #: src/bin/e_exec.c:924
 #, c-format
 msgid "%s was interrupted by a Broken Pipe."
-msgstr "%s è stato fermato da una pipe rotta"
+msgstr "%s è stato fermato da una pipe rotta."
 
 #: src/bin/e_exec.c:927
 #, c-format
 msgid "%s was interrupted by a Termination Signal."
-msgstr "%s è stato fermato da un segnale di terminazione"
+msgstr "%s è stato fermato da un segnale di terminazione."
 
 #: src/bin/e_exec.c:931
 #, c-format
 msgid "%s was interrupted by a Bus Error."
-msgstr "%s è stato fermato da un errore del bus"
+msgstr "%s è stato fermato da un errore del bus."
 
 #: src/bin/e_exec.c:934
 #, c-format
 msgid "%s was interrupted by the signal number %i."
-msgstr "%s è stato fermato dal segnale numero %i"
+msgstr "%s è stato fermato dal segnale numero %i."
 
 #: src/bin/e_exec.c:990
 msgid ""
@@ -1602,7 +1602,7 @@ msgstr "Sto già creando un file in questa directory!"
 #: src/bin/e_fm.c:9714 src/bin/e_fm.c:9735
 #, c-format
 msgid "%s can't be written to!"
-msgstr "Impossibile scrivere in %s"
+msgstr "Impossibile scrivere in %s!"
 
 #: src/bin/e_fm.c:9754
 msgid "Directory"
@@ -1823,7 +1823,7 @@ msgstr "Ultima modifica dei permessi:"
 
 #: src/bin/e_fm_prop.c:439
 msgid "File Type:"
-msgstr "Tipo di file"
+msgstr "Tipo di file:"
 
 #: src/bin/e_fm_prop.c:446
 msgid "Permissions"
@@ -1879,7 +1879,7 @@ msgstr "Informazioni collegamento"
 
 #: src/bin/e_fm_prop.c:558
 msgid "This link is broken."
-msgstr "Questo collegamento non funziona"
+msgstr "Questo collegamento non funziona."
 
 #: src/bin/e_fm_prop.c:613
 msgid "Select an Image"
@@ -1943,7 +1943,7 @@ msgid ""
 "Please press key sequence,<br><br>or <hilight>Escape</hilight> to abort."
 msgstr ""
 "Premere la combinazione di tasti,<br><br>o <hilight>Escape</hilight> per "
-"abortire"
+"abortire."
 
 #: src/bin/e_grab_dialog.c:5
 msgid ""
@@ -2081,7 +2081,7 @@ msgstr "Impedisci la chiusura della finestra"
 
 #: src/bin/e_int_border_locks.c:291
 msgid "Do not allow the border to change on this window"
-msgstr "impedisci le modifiche ai bordi di questa finestra"
+msgstr "Impedisci le modifiche ai bordi di questa finestra"
 
 #: src/bin/e_int_border_locks.c:294
 msgid "Remember the locks for this window"
@@ -2665,7 +2665,7 @@ msgstr "Tipo finestra"
 
 #: src/bin/e_int_border_remember.c:701
 msgid "wildcard matches are allowed"
-msgstr "I caratteri jolly sono permessi"
+msgstr "i caratteri jolly sono permessi"
 
 #: src/bin/e_int_border_remember.c:703
 msgid "Transience"
@@ -3697,7 +3697,7 @@ msgstr ""
 
 #: src/bin/e_module.c:268
 msgid "Module does not contain all needed functions."
-msgstr "Il modulo non contiene tutte le funzioni necessarie"
+msgstr "Il modulo non contiene tutte le funzioni necessarie."
 
 #: src/bin/e_module.c:283
 #, c-format
@@ -3982,7 +3982,7 @@ msgstr ""
 
 #: src/bin/e_sys.c:631
 msgid "EEK! This should not happen."
-msgstr "EEK! Questo non dovrebbe accadere"
+msgstr "EEK! Questo non dovrebbe accadere."
 
 #: src/bin/e_sys.c:656
 msgid "Power off failed."
@@ -4579,7 +4579,7 @@ msgstr "Consigliata alimentazione AC."
 
 #: src/modules/battery/e_mod_main.c:548
 msgid "Power now: "
-msgstr "Carica attuale:"
+msgstr "Carica attuale: "
 
 #: src/modules/battery/e_mod_main.c:554
 msgid "Remaining time: "
@@ -4696,7 +4696,7 @@ msgstr "Impostato..."
 
 #: src/modules/clock/e_mod_config.c:320
 msgid "Set... "
-msgstr "Impostato..."
+msgstr "Impostato… "
 
 #: src/modules/clock/e_mod_main.c:1198
 msgid "Toggle calendar"
@@ -5449,7 +5449,7 @@ msgid ""
 "hilight> action.<br>"
 msgstr ""
 "Il segnale e la sorgente che avete scelto sono già usati "
-"dall'azione<br><hilight>%s</hilight>."
+"dall'azione<br><hilight>%s</hilight>"
 
 #: src/modules/conf_edgebindings/e_int_config_signalbindings.c:634
 msgid "Add Signal Binding"
@@ -5910,7 +5910,7 @@ msgid ""
 "<hilight>Escape</hilight> to abort."
 msgstr ""
 "Avviare l'evento ACPI che si desidera impostare,<br><br>o <hilight>Escape</"
-"hilight> per abortire"
+"hilight> per abortire."
 
 #: src/modules/conf_keybindings/e_int_config_keybindings.c:5
 msgid "Single key"
@@ -7136,7 +7136,7 @@ msgstr "Probabilmente i seguenti file non sono temi per Moksha:<ps/>%s"
 
 #: src/modules/conf_theme/e_int_config_theme.c:786
 msgid " Import..."
-msgstr "Importa..."
+msgstr " Importa..."
 
 #: src/modules/conf_theme/e_int_config_theme.c:1405
 msgid "Theme Categories"
@@ -7489,7 +7489,7 @@ msgstr "Elevazione automatica"
 
 #: src/modules/conf_window_manipulation/e_int_config_focus.c:272
 msgid "Delay before raising:"
-msgstr "Ritardo nell'elevazione"
+msgstr "Ritardo nell'elevazione:"
 
 #: src/modules/conf_window_manipulation/e_int_config_focus.c:282
 msgid "Raise Window"
@@ -7618,11 +7618,11 @@ msgstr "Accetta modifiche automaticamente dopo:"
 
 #: src/modules/conf_window_manipulation/e_int_config_window_geometry.c:251
 msgid "Move by"
-msgstr "Sposta di:"
+msgstr "Sposta di"
 
 #: src/modules/conf_window_manipulation/e_int_config_window_geometry.c:256
 msgid "Resize by"
-msgstr "Ridimensiona di:"
+msgstr "Ridimensiona di"
 
 #: src/modules/conf_window_manipulation/e_int_config_window_geometry.c:261
 #: src/modules/wizard/page_011.c:174 src/modules/xkbswitch/e_mod_main.c:75
@@ -8294,16 +8294,16 @@ msgid ""
 "<hilight>&lt;return&gt;</hilight>.<br> This page will not show up next time "
 "you run <hilight>everything</hilight>.<br>    <hilight>&lt;Esc&gt;</hilight> "
 "close this Dialog<br>    <hilight>&lt;?&gt;</hilight> show this page<br>    "
-"<hilight>&lt;return&gt;</hilight> run action<br>    <hilight>&lt;"
-"ctrl+return&gt;</hilight> run action and continue<br>    <hilight>&lt;tab&gt;"
-"</hilight> toggle between selectors<br>    <hilight>&lt;ctrl+tab&gt;</"
-"hilight> complete input (depends on plugin)<br>    <hilight>&lt;ctrl+'x'&gt;"
-"</hilight> jump to plugin beginning with 'x'<br>    <hilight>&lt;ctrl+left/"
-"right&gt;</hilight> cycle through plugins<br>    <hilight>&lt;ctrl+up/"
-"down&gt;</hilight> go to first/last item<br>    <hilight>&lt;ctrl+1&gt;</"
-"hilight> toggle view modes (exit this page ;)<br>    <hilight>&lt;ctrl+2&gt;"
-"</hilight> toggle list view modes<br>    <hilight>&lt;ctrl+3&gt;</hilight> "
-"toggle thumb view modes"
+"<hilight>&lt;return&gt;</hilight> run action<br>    "
+"<hilight>&lt;ctrl+return&gt;</hilight> run action and continue<br>    "
+"<hilight>&lt;tab&gt;</hilight> toggle between selectors<br>    "
+"<hilight>&lt;ctrl+tab&gt;</hilight> complete input (depends on "
+"plugin)<br>    <hilight>&lt;ctrl+'x'&gt;</hilight> jump to plugin beginning "
+"with 'x'<br>    <hilight>&lt;ctrl+left/right&gt;</hilight> cycle through "
+"plugins<br>    <hilight>&lt;ctrl+up/down&gt;</hilight> go to first/last "
+"item<br>    <hilight>&lt;ctrl+1&gt;</hilight> toggle view modes (exit this "
+"page ;)<br>    <hilight>&lt;ctrl+2&gt;</hilight> toggle list view "
+"modes<br>    <hilight>&lt;ctrl+3&gt;</hilight> toggle thumb view modes"
 msgstr ""
 "  Ok, ecco la spiegazione di <hilight>Everything</hilight>...<br>  Digitate "
 "semplicemente alcune lettere di ciò che state<br>  cercando. Usate i tasti "
@@ -8311,17 +8311,18 @@ msgstr ""
 "il tasto <hilight>&lt;tab&gt;</hilight> per selezionare<br>  un'azione, "
 "quindi <hilight>&lt;invio&gt;</hilight>. Questa pagina non<br>  apparirà "
 "alla prossima esecuzione di <hilight>Everything</hilight><br>    "
-"<hilight>&lt;?&gt;</hilight> mostra questa pagina<br>    <hilight>&lt;"
-"invio&gt;</hilight> esegue l'azione<br>    <hilight>&lt;ctrl+invio&gt;</"
-"hilight> esegue l'azione e continua<br>    <hilight>&lt;tab&gt;</hilight> "
-"cambia selettore<br>    <hilight>&lt;ctrl+tab&gt;</hilight> completa l'input "
-"(dipende dal plugin)<br>    <hilight>&lt;ctrl+'x'&gt;</hilight> va al plugin "
-"che inizia con 'x'<br>    <hilight>&lt;ctrl+sinistra/destra&gt;</hilight> "
-"cicla tra i plugin<br>    <hilight>&lt;ctrl+su/giù&gt;</hilight> va alla "
-"prima/ultima voce<br>    <hilight>&lt;ctrl+1&gt;</hilight> cambia "
-"visualizzazione (esce da questa pagina ;)<br>    <hilight>&lt;ctrl+2&gt;</"
-"hilight> cambia visualizzazione a elenco<br>    <hilight>&lt;ctrl+3&gt;</"
-"hilight> cambia visualizzazione a miniature"
+"<hilight>&lt;?&gt;</hilight> mostra questa pagina<br>    "
+"<hilight>&lt;invio&gt;</hilight> esegue l'azione<br>    "
+"<hilight>&lt;ctrl+invio&gt;</hilight> esegue l'azione e continua<br>    "
+"<hilight>&lt;tab&gt;</hilight> cambia selettore<br>    "
+"<hilight>&lt;ctrl+tab&gt;</hilight> completa l'input (dipende dal "
+"plugin)<br>    <hilight>&lt;ctrl+'x'&gt;</hilight> va al plugin che inizia "
+"con 'x'<br>    <hilight>&lt;ctrl+sinistra/destra&gt;</hilight> cicla tra i "
+"plugin<br>    <hilight>&lt;ctrl+su/giù&gt;</hilight> va alla prima/ultima "
+"voce<br>    <hilight>&lt;ctrl+1&gt;</hilight> cambia visualizzazione (esce "
+"da questa pagina ;)<br>    <hilight>&lt;ctrl+2&gt;</hilight> cambia "
+"visualizzazione a elenco<br>    <hilight>&lt;ctrl+3&gt;</hilight> cambia "
+"visualizzazione a miniature"
 
 #: src/modules/everything/evry_view_tabs.c:93
 msgid "Back"
@@ -9415,7 +9416,7 @@ msgstr ""
 "l'opzione da riga di<br>comando per cambiare il nome della<br>finestra del "
 "terminale è sconosciuta.<br>Potete inviare un bug report se questo<br>è un "
 "terminale che può cambiare nome<br>alla sua finestra. In alternativa "
-"potete<br>aggiungervi un data.item."
+"potete<br>aggiungervi un data.item"
 
 #: src/modules/quickaccess/e_mod_quickaccess.c:314
 msgid "Like so:"
@@ -9607,7 +9608,7 @@ msgstr ""
 
 #: src/modules/quickaccess/e_mod_quickaccess.c:1312
 msgid "quick access name/identifier"
-msgstr "Nome/identificatore Quickaccess"
+msgstr "nome/identificatore Quickaccess"
 
 #: src/modules/systray/e_mod_main.c:536 src/modules/systray/e_mod_main.c:952
 msgid "Systray Error"
@@ -9753,27 +9754,24 @@ msgid "Color"
 msgstr "Colore"
 
 #: src/modules/shot/e_mod_edit.c:2617
-#, fuzzy
 msgid "Zoom in"
 msgstr "Zoom avanti"
 
 #: src/modules/shot/e_mod_edit.c:2623
-#, fuzzy
 msgid "Zoom reset"
-msgstr "Zoom indietro"
+msgstr "Reimposta lo zoom"
 
 #: src/modules/shot/e_mod_edit.c:2629
-#, fuzzy
 msgid "Zoom out"
 msgstr "Zoom indietro"
 
 #: src/modules/shot/e_mod_edit.c:2636
 msgid "Undo"
-msgstr ""
+msgstr "Annulla"
 
 #: src/modules/shot/e_mod_edit.c:2644
 msgid "Redo"
-msgstr ""
+msgstr "Ripeti"
 
 #: src/modules/shot/e_mod_main.c:346 src/modules/shot/e_mod_main.c:400
 msgid "Take Shot"
@@ -9813,7 +9811,7 @@ msgid ""
 "of your screenshots."
 msgstr ""
 "Nessuna azione e/o modulo del file manager trovati.<br>Non posso mostrare "
-"dove si trovano i tuoi screenshot"
+"dove si trovano i tuoi screenshot."
 
 #: src/modules/shot/e_mod_share.c:168
 #, c-format
@@ -10066,7 +10064,7 @@ msgid ""
 "correctly installed and running"
 msgstr ""
 "Assicurarsi che non vi siano altri moduli che facciano da server e che D-Bus "
-"sia correttamente installato e funzionante."
+"sia correttamente installato e funzionante"
 
 #: src/modules/notification/e_mod_main.c:423
 #: src/modules/clipboard/e_mod_main.c:424
@@ -10079,7 +10077,7 @@ msgstr "Entra in modalità presentazione"
 
 #: src/modules/notification/e_mod_main.c:618
 msgid "Moksha is in <b>presentation</b> mode."
-msgstr "Moksha è in modalità <b>presentazione</b>"
+msgstr "Moksha è in modalità <b>presentazione</b>."
 
 #: src/modules/notification/e_mod_main.c:622
 msgid "Exited Presentation Mode"
