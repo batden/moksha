@@ -9614,11 +9614,11 @@ msgstr "Infobereich"
 
 #: src/modules/shot/e_mod_delay.c:47 src/modules/shot/e_mod_preview.c:93
 msgid "Select action to take with screenshot"
-msgstr ""
+msgstr "Aktion für den Screenshot auswählen"
 
 #: src/modules/shot/e_mod_delay.c:59 src/modules/shot/e_mod_preview.c:140
 msgid "Delay"
-msgstr ""
+msgstr "Verzögerung"
 
 #: src/modules/shot/e_mod_delay.c:61
 #, c-format
@@ -9726,27 +9726,24 @@ msgid "Color"
 msgstr "Farbe"
 
 #: src/modules/shot/e_mod_edit.c:2617
-#, fuzzy
 msgid "Zoom in"
 msgstr "Vergrößern"
 
 #: src/modules/shot/e_mod_edit.c:2623
-#, fuzzy
 msgid "Zoom reset"
-msgstr "Verkleinern"
+msgstr "Zoom zurücksetzen"
 
 #: src/modules/shot/e_mod_edit.c:2629
-#, fuzzy
 msgid "Zoom out"
 msgstr "Verkleinern"
 
 #: src/modules/shot/e_mod_edit.c:2636
 msgid "Undo"
-msgstr ""
+msgstr "Rückgängig"
 
 #: src/modules/shot/e_mod_edit.c:2644
 msgid "Redo"
-msgstr ""
+msgstr "Wiederholen"
 
 #: src/modules/shot/e_mod_main.c:346 src/modules/shot/e_mod_main.c:400
 msgid "Take Shot"
@@ -9824,7 +9821,6 @@ msgid "Confirm Share"
 msgstr "Teilen bestätigen"
 
 #: src/modules/shot/e_mod_share.c:338
-#, fuzzy
 msgid ""
 "Are you sure you want to upload this image<ps/>publically to these services?"
 msgstr ""
